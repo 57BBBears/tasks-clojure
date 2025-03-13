@@ -8,8 +8,6 @@
        (apply +))
   )
 
-(sum-singles [1 1 3 2 2 5])
-
 (deftest test-cases
   (is (= (sum-singles [1 1 3 2 2 5]) 8))
   (is (= (sum-singles [0 2 2 2 10]) 10))
