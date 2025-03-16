@@ -9,7 +9,10 @@
           [(/ -1.0 0.0) (second numbers)] numbers))
 )
 
-(defn max-product [numbers]
+(defn max-product
+  "Return max multiplication of the adjucent numbers.
+   Vector[Int] -> Int"
+  [numbers]
   (apply max 
          (map * numbers (rest numbers))))
 
