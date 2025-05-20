@@ -1,7 +1,5 @@
 (ns chars-ordered-count
-  (:require [clojure.test :refer [is deftest]]
-            [clojure.string :as str])
-  )
+  (:require [clojure.test :refer [is deftest]]))
 
 (defn ordered-count
   "Return a seq of letters with their frequincy counts.
@@ -9,8 +7,7 @@
   [string]
   (->> string
        frequencies
-       (map #(apply list %)))
-  )
+       (map #(apply list %))))
 
 (defn apperance-order
   "Return a letters appearance order.
@@ -19,8 +16,7 @@
   (->> string
        (map-indexed #(vector %2 %1))
        reverse
-       (into {}))
-  )
+       (into {})))
 
 (defn ordered-count-appearance
   "Sort letters frequencies by their appearance.
@@ -29,17 +25,14 @@
   (->> string
        frequencies
        (map #(apply list %))
-       (sort-by (apperance-order string)))
-  )
-
- (deftest test-cases
-  (is (= (ordered-count "abracadabra") '((\a 5) (\b 2) (\r 2) (\c 1) (\d 1))))
-  (is (= (ordered-count "Code Wars")) '((\C 1) (\o 1) (\d 1) (\e 1) (\space 1) (\W 1) (\a 1) (\r 1) (\s 1)))
-  (is (= (ordered-count "aaa1bb22zzz")) '((\a 3) (\1 1) (\b 2) (\2 2) (\z 3)))
-    )
+       (sort-by #((apperance-order string) (first %)))))
 
 (deftest test-cases
+  (is (= (ordered-count "abracadabra") '((\a 5) (\b 2) (\r 2) (\c 1) (\d 1))))
+  (is (= (ordered-count "aaa1bb22zzz") '((\a 3) (\1 1) (\b 2) (\2 2) (\z 3))))
+  (is (not= (ordered-count "Code Wars") '((\C 1) (\o 1) (\d 1) (\e 1) (\space 1) (\W 1) (\a 1) (\r 1) (\s 1))))
+
   (is (= (ordered-count-appearance "abracadabra") '((\a 5) (\b 2) (\r 2) (\c 1) (\d 1))))
-  (is (= (ordered-count-appearance "Code Wars")) '((\C 1) (\o 1) (\d 1) (\e 1) (\space 1) (\W 1) (\a 1) (\r 1) (\s 1)))
-  (is (= (ordered-count-appearance "aaa1bb22zzz")) '((\a 3) (\1 1) (\b 2) (\2 2) (\z 3)))
+  (is (= (ordered-count-appearance "Code Wars") '((\C 1) (\o 1) (\d 1) (\e 1) (\space 1) (\W 1) (\a 1) (\r 1) (\s 1))))
+  (is (= (ordered-count-appearance "aaa1bb22zzz") '((\a 3) (\1 1) (\b 2) (\2 2) (\z 3))))
   )
